@@ -1,5 +1,7 @@
 import joblib
 import pytest
+import sys
+from pathlib import Path
 
 from src.predict import predict, MODEL_PATH, EXPECTED_FEATURES
 
