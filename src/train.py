@@ -49,6 +49,8 @@ def main():
 
     baseline_f1 = f1_score(y_test, baseline_predictions)
 
+    baseline_accuracy_score = accuracy_score(y_test, baseline_predictions)
+
     # 4. train randomforestclassifier (Candidate model)
     model = RandomForestClassifier(
         n_estimators=100,
@@ -60,6 +62,8 @@ def main():
     predictions = model.predict(x_test)
 
     model_f1 = f1_score(y_test,predictions)
+
+    model_accuracy_score = accuracy_score(y_test,predictions)
 
     # 5. Quality gate
     required_score = baseline_f1 + MARGIN
@@ -95,6 +99,8 @@ def main():
         "metric": "f1",
         "baseline_score": baseline_f1,
         "model_score": model_f1,
+        "baseline_accuracy_score": baseline_accuracy_score,
+        "model_accuracy_score": model_accuracy_score,
         "improvement_margin": MARGIN,
         "required_score": required_score,
         "quality_gate_passed": quality_gate_passed,
