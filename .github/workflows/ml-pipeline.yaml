@@ -1,7 +1,7 @@
-name: ML PIPELINE
+name: ML Pipeline
 
 on:
-  pushh:
+  push:
     branches:
       - main
 
@@ -12,36 +12,32 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.13.5"
-        
+          python-version: "3.11"
+
       - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
+        run: pip install -r requirements.txt
 
       - name: Validate dataset
-        run: |
-          python src/validate.py
+        run: python src/validate.py
 
       - name: Train model and evaluate quality gate
-        run: |
-          python src/train.py
+        run: python src/train.py
 
       - name: Run application tests
-        run: |
-          pytest
+        run: pytest
 
       - name: Prepare model package
         run: |
-        mkdir model-package
-        cp artifacts/model.joblib model-package/
-        cp artifacts/metrics.json model-package/
-        cp src/predict.py model-package/
-        cp requirements.txt model-package/
-      
+          mkdir model-package
+          cp artifacts/model.joblib model-package/
+          cp artifacts/metrics.json model-package/
+          cp src/predict.py model-package/
+          cp requirements.txt model-package/
+
       - name: Upload model package
         uses: actions/upload-artifact@v4
         with:
