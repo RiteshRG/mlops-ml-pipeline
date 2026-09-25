@@ -1,5 +1,5 @@
 from pathlib import Path
-import Pandas as pd
+import pandas as pd
 import sys
 
 DATA_PATH = Path("data/breast_cancer_wisconsin.csv")
